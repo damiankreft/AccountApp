@@ -3,12 +3,12 @@ namespace AccountApp.Infrastructure.Dto
     public class AccountDto
     {
         public string Email { get; set; }
-        public string Username { get; set; }
+        public string Password { get; set; }
 
-        public AccountDto(string email, string username)
+        public AccountDto(string email, string password)
         {
-            this.Email = email;
-            this.Username = username;
+            Email = email;
+            Password = password;
 
         }
     }

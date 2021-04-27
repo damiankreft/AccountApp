@@ -30,8 +30,8 @@ namespace AccountApp.Infrastructure.Services
         AccountDto IAccountService.Get(string email)
         {
             var account = _accountRepository.Get(email);
-            var accountDto = new AccountDto(account.Email, account.Username);
-            
+            var accountDto = new AccountDto(account.Email, account.PasswordHash);
+
             return accountDto;
         }
     }
