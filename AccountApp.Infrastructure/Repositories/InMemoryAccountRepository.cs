@@ -9,8 +9,8 @@ namespace AccountApp.Infrastructure.Repositories
     {
         public static ISet<Account> _accounts = new HashSet<Account>
         {
-            new Account("test1@example.com", "secretPassword"),
-            new Account("example@test.com", "passwordSecret"),
+            new Account("test1@example.com", "Fureya", "secretPassword"),
+            new Account("example@test.com", "Soja", "passwordSecret"),
         };
 
         public void Add(Account account)

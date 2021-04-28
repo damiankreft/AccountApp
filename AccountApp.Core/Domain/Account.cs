@@ -12,7 +12,7 @@ namespace AccountApp.Core.Domain
         public string Os { get; protected set; }
         public int Recruiter { get; protected set; }
 
-        public Account(string email, string password)
+        public Account(string email, string username, string password)
         {
             Email = email;
             PasswordHash = password;

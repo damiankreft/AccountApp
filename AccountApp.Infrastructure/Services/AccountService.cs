@@ -2,19 +2,22 @@ using System;
 using AccountApp.Core.Domain;
 using AccountApp.Core.Repositories;
 using AccountApp.Infrastructure.Dto;
+using AutoMapper;
 
 namespace AccountApp.Infrastructure.Services
 {
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IMapper _mapper;
 
-        public AccountService(IAccountRepository accountRepository)
+        public AccountService(IAccountRepository accountRepository, IMapper mapper)
         {
             _accountRepository = accountRepository;
+            _mapper = mapper;
         }
 
-        public void Register(string email, string password)
+        public void Register(string email, string username, string password)
         {
             var account = _accountRepository.Get(email);
 
@@ -23,7 +26,7 @@ namespace AccountApp.Infrastructure.Services
                 throw new Exception("This email is already used.");
             }
 
-            account = new Account(email, password);
+            account = new Account(email, username, password);
             _accountRepository.Add(account);
         }
 
@@ -36,8 +39,7 @@ namespace AccountApp.Infrastructure.Services
                 return null;
             }
 
-            var accountDto = new AccountDto(account.Email, account.PasswordHash);
-            return accountDto;
+            return _mapper.Map<AccountDto>(account);
         }
     }
 }
