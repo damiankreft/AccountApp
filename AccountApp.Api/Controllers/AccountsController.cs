@@ -16,7 +16,16 @@ namespace AccountApp.Api.Controllers
 
 
         [HttpGet("{email}")]
-        public AccountDto Get(string email)
-            => _accountService.Get(email);
+        public ActionResult<AccountDto> Get(string email)
+        {
+            var account = _accountService.Get(email);
+
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            return account;
+        }
     }
 }

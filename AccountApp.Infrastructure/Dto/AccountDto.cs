@@ -9,7 +9,6 @@ namespace AccountApp.Infrastructure.Dto
         {
             Email = email;
             Password = password;
-
         }
     }
 }

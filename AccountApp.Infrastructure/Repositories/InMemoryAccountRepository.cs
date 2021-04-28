@@ -22,7 +22,7 @@ namespace AccountApp.Infrastructure.Repositories
             => _accounts.Single(x => x.Id == id);
 
         public Account Get(string email)
-            => _accounts.Single(x => x.Email == email.ToLowerInvariant());
+            => _accounts.FirstOrDefault(x => x.Email == email.ToLowerInvariant());
 
         public IEnumerable<Account> GetAll()
         {
