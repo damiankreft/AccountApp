@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using AccountApp.Core.Domain;
 using AccountApp.Core.Repositories;
 using AccountApp.Infrastructure.Dto;
@@ -17,22 +19,16 @@ namespace AccountApp.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void Register(string email, string username, string password)
+        public async Task<List<AccountDto>> GetAllAsync()
         {
-            var account = _accountRepository.Get(email);
+            var accounts = await _accountRepository.GetAllAsync();
 
-            if (account != null)
-            {
-                throw new Exception("This email is already used.");
-            }
-
-            account = new Account(email, username, password);
-            _accountRepository.Add(account);
+            return accounts is null ? null : _mapper.Map<List<AccountDto>>(accounts);
         }
 
-        AccountDto IAccountService.Get(string email)
+        public async Task<AccountDto> GetAsync(string email)
         {
-            var account = _accountRepository.Get(email);
+            var account = await _accountRepository.GetAsync(email);
 
             if (account is null)
             {
@@ -40,6 +36,19 @@ namespace AccountApp.Infrastructure.Services
             }
 
             return _mapper.Map<AccountDto>(account);
+        }
+
+        public async Task RegisterAsync(string email, string username, string password)
+        {
+            var account = await _accountRepository.GetAsync(email);
+
+            if (account != null)
+            {
+                throw new Exception("This email is already used.");
+            }
+
+            account = new Account(email, username, password);
+            await _accountRepository.AddAsync(account);
         }
     }
 }

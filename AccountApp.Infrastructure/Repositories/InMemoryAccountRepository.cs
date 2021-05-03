@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AccountApp.Core.Domain;
 using AccountApp.Core.Repositories;
 
@@ -13,30 +14,31 @@ namespace AccountApp.Infrastructure.Repositories
             new Account("example@test.com", "Soja", "passwordSecret"),
         };
 
-        public void Add(Account account)
+        public async Task AddAsync(Account account)
         {
-            _accounts.Add(account);
+            await Task.FromResult(_accounts.Add(account));
         }
 
-        public Account Get(int id)
-            => _accounts.Single(x => x.Id == id);
+        public async Task<Account> GetAsync(int id)
+            => await Task.FromResult(_accounts.Single(x => x.Id == id));
 
-        public Account Get(string email)
-            => _accounts.FirstOrDefault(x => x.Email == email.ToLowerInvariant());
+        public async Task<Account> GetAsync(string email)
+            => await Task.FromResult(_accounts.FirstOrDefault(x => x.Email == email.ToLowerInvariant()));
 
-        public IEnumerable<Account> GetAll()
+        public async Task<IEnumerable<Account>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            return await Task.FromResult(_accounts);
         }
 
-        public void Remove(Account account)
+        public async Task RemoveAsync(Account account)
         {
-            throw new System.NotImplementedException();
+            _accounts.Remove(account);
+            await Task.CompletedTask;
         }
 
-        public void Update(Account account)
+        public async Task UpdateAsync(Account account)
         {
-            throw new System.NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }

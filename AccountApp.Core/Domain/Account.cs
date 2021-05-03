@@ -15,6 +15,7 @@ namespace AccountApp.Core.Domain
         public Account(string email, string username, string password)
         {
             Email = email;
+            Username = username;
             PasswordHash = password;
         }
     }
