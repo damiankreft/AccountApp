@@ -1,32 +1,34 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using AccountApp.Core.Repositories;
 using AccountApp.Infrastructure.Mappers;
 using AccountApp.Infrastructure.Repositories;
 using AccountApp.Infrastructure.Services;
-using AutoMapper;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace AccountApp.Api
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; private set; }
+        public ILifetimeScope AutofacContainer { get; private set; }
+
+        public Startup(IConfiguration configuration)
+        {
+            this.Configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddScoped<IAccountRepository, InMemoryAccountRepository>();
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddControllers();
             
             services.AddSwaggerGen(config => 
@@ -35,6 +37,13 @@ namespace AccountApp.Api
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 config.IncludeXmlComments(xmlPath);
             });
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterType<InMemoryAccountRepository>().As<IAccountRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<AccountService>().As<IAccountService>().InstancePerLifetimeScope();
+            builder.RegisterInstance(AutoMapperConfig.Initialize()).SingleInstance();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
