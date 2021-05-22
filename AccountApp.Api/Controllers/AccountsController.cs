@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AccountApp.Infrastructure.Commands;
 using AccountApp.Infrastructure.Commands.Accounts;
 using AccountApp.Infrastructure.Dto;
 using AccountApp.Infrastructure.Services;
@@ -9,10 +10,11 @@ namespace AccountApp.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AccountsController : Controller
+    public class AccountsController : ApiControllerBase
     {
         private readonly IAccountService _accountService;
-        public AccountsController(IAccountService accountService)
+        
+        public AccountsController(IAccountService accountService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _accountService = accountService;
         }
@@ -52,12 +54,13 @@ namespace AccountApp.Api.Controllers
         /// <summary>
         /// Post new account.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="command"></param>
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] CreateAccount request)
+        public async Task<IActionResult> Register([FromBody] CreateAccount command)
         {
-            await _accountService.RegisterAsync(request.Email, request.Username, request.Password);
-            return Created($@"accounts/{request.Email}", request);
+            await _commandDispatcher.DispatchAsync(command);
+            
+            return Created($@"accounts/{command.Email}", command);
         }
     }
 }

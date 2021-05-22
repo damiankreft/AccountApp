@@ -2,10 +2,12 @@ using System;
 using System.IO;
 using System.Reflection;
 using AccountApp.Core.Repositories;
+using AccountApp.Infrastructure.Ioc.Modules;
 using AccountApp.Infrastructure.Mappers;
 using AccountApp.Infrastructure.Repositories;
 using AccountApp.Infrastructure.Services;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +30,7 @@ namespace AccountApp.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc();
             services.AddControllers();
             
             services.AddSwaggerGen(config => 
@@ -41,8 +43,9 @@ namespace AccountApp.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterType<InMemoryAccountRepository>().As<IAccountRepository>().InstancePerLifetimeScope();
             builder.RegisterType<AccountService>().As<IAccountService>().InstancePerLifetimeScope();
+            builder.RegisterModule(new CommandModule());
+            builder.RegisterType<InMemoryAccountRepository>().As<IAccountRepository>().InstancePerLifetimeScope();
             builder.RegisterInstance(AutoMapperConfig.Initialize()).SingleInstance();
         }
 
