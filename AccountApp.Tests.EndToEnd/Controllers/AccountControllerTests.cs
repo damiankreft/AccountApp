@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
-using AccountApp.Infrastructure.Commands.Accounts;
+using Autofac.Extensions.DependencyInjection;
 
 namespace AccountApp.Tests.EndToEnd.Controllers
 {
@@ -22,7 +22,7 @@ namespace AccountApp.Tests.EndToEnd.Controllers
 
         public AccountControllerTests()
         {
-            _server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            _server = new TestServer(new WebHostBuilder().UseStartup<Startup>().ConfigureServices(services => services.AddAutofac()));
             _client = _server.CreateClient();
         }
 
