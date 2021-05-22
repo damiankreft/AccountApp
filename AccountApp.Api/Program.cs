@@ -14,13 +14,13 @@ namespace AccountApp.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args)
             => Host.CreateDefaultBuilder(args)
+                    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                     .ConfigureWebHostDefaults(webHostBuilder => 
                     {
                         webHostBuilder
-                            .UseStartup<Startup>()
-                            .UseContentRoot(Directory.GetCurrentDirectory());
-                            
-                    })
-                    .UseServiceProviderFactory(new AutofacServiceProviderFactory());
+                            .UseContentRoot(Directory.GetCurrentDirectory())
+                            .UseIISIntegration()
+                            .UseStartup<Startup>();
+                    });
     }
 }
