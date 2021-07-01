@@ -19,7 +19,6 @@ namespace AccountApp.Tests.EndToEnd.Controllers
         private readonly TestServer _server;
         private readonly HttpClient _client;
 
-
         public AccountControllerTests()
         {
             _server = new TestServer(new WebHostBuilder().UseStartup<Startup>().ConfigureServices(services => services.AddAutofac()));
