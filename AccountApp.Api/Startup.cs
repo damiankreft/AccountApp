@@ -7,11 +7,9 @@ using AccountApp.Infrastructure.Mappers;
 using AccountApp.Infrastructure.Repositories;
 using AccountApp.Infrastructure.Services;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +28,9 @@ namespace AccountApp.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            // Implementation of services.AddMvc(), used in the previous versions of this code,
+            // is made up by AddControllersWithViews and AddRazorPages calls. 
+            services.AddControllersWithViews();
             
             services.AddSwaggerGen(config => 
             {
@@ -64,6 +64,9 @@ namespace AccountApp.Api
 
             app.UseEndpoints(endpoints =>  
             {
+                endpoints.MapGet("/", async context => { 
+                    await context.Response.WriteAsync("Hello, world!");
+                 });
                 endpoints.MapControllers();
             });
         }
