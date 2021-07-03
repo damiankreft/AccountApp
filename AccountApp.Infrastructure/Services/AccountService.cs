@@ -23,7 +23,7 @@ namespace AccountApp.Infrastructure.Services
         {
             var accounts = await _accountRepository.GetAllAsync();
 
-            return accounts is null ? null : _mapper.Map<List<AccountDto>>(accounts);
+            return accounts is null ? new List<AccountDto>() : _mapper.Map<List<AccountDto>>(accounts);
         }
 
         public async Task<AccountDto> GetAsync(string email)
@@ -44,7 +44,7 @@ namespace AccountApp.Infrastructure.Services
 
             if (account != null)
             {
-                throw new Exception("This email is already used.");
+                throw new ArgumentException("This email is already used.");
             }
 
             account = new Account(email, username, password);
