@@ -31,7 +31,6 @@ namespace AccountApp.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddControllers();
             
             services.AddSwaggerGen(config => 
             {
@@ -66,10 +65,6 @@ namespace AccountApp.Api
             app.UseEndpoints(endpoints =>  
             {
                 endpoints.MapControllers();
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
             });
         }
     }
