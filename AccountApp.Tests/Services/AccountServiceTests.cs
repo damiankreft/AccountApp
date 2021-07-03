@@ -46,7 +46,7 @@ namespace AccountApp.Tests.Services
         }
 
         [Test]
-        public async Task returns()
+        public async Task returns_account_with_given_email()
         {
             var repositoryMock = _repository;
             var mapperMock = _mapper;
