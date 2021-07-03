@@ -4,12 +4,11 @@ using AccountApp.Infrastructure.Commands;
 using AccountApp.Infrastructure.Commands.Accounts;
 using AccountApp.Infrastructure.Dto;
 using AccountApp.Infrastructure.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountApp.Api.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
     public class AccountsController : ApiControllerBase
     {
         private readonly IAccountService _accountService;
@@ -26,12 +25,8 @@ namespace AccountApp.Api.Controllers
         public async Task<ActionResult<List<AccountDto>>> GetAll()
         {
             var accounts = await _accountService.GetAllAsync();
-            if (accounts is null)
-            {
-                return NotFound();
-            }
 
-            return accounts;
+            return accounts is null ? NotFound() : accounts;
         }
 
         /// <summary>
@@ -43,12 +38,7 @@ namespace AccountApp.Api.Controllers
         {
             var account = await _accountService.GetAsync(email);
 
-            if (account == null)
-            {
-                return NotFound();
-            }
-
-            return Json(account);
+            return account is null ? NotFound() : Json(account);
         }
 
         /// <summary>
@@ -58,9 +48,20 @@ namespace AccountApp.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] CreateAccount command)
         {
-            await _commandDispatcher.DispatchAsync(command);
+            try
+            {
+                await _commandDispatcher.DispatchAsync(command);
             
-            return Created($@"accounts/{command.Email}", command);
+                return Created($@"accounts/{command.Email}", command);
+            }
+            catch (System.ArgumentException)
+            {
+                return Conflict("This email is used already.");
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
