@@ -4,7 +4,7 @@ using AccountApp.Infrastructure.Dto;
 
 namespace AccountApp.Infrastructure.Services
 {
-    public interface IAccountService
+    public interface IAccountService : IService
     {
         Task<List<AccountDto>> GetAllAsync();
         Task<AccountDto> GetAsync(string email);

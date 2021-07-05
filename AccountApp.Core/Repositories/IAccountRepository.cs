@@ -4,7 +4,7 @@ using AccountApp.Core.Domain;
 
 namespace AccountApp.Core.Repositories
 {
-    public interface IAccountRepository
+    public interface IAccountRepository : IRepository
     {
          Task<Account> GetAsync(int id);
          Task<Account> GetAsync(string email);

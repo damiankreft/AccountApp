@@ -15,22 +15,40 @@ namespace AccountApp.Tests.Services
     public class AccountServiceTests
     {
         private Mock<IAccountRepository> _repository;
+        private IAccountRepository _repo;
         private Mock<AutoMapper.IMapper> _mapper;
 
         [SetUp]
         public void Setup()
         {
             _repository = new Mock<IAccountRepository>();
+            _repo = new InMemoryAccountRepository();
             _mapper = new Mock<AutoMapper.IMapper>();
         }
 
         [Test]
-        public async Task indicates_test_framework_success_when_indicated()
+        public async Task calls_register_account_once()
         {
             var accountService = new AccountService(_repository.Object, _mapper.Object);
             await accountService.RegisterAsync("testowyEmail@dot.com", "testowyUser", "testoweHaslo");
             
             _repository.Verify(x => x.AddAsync(It.IsAny<Account>()), Times.Once);
+        }
+
+        [Test]
+        public async Task registers_account_with_given_values()
+        {
+            var accountService = new AccountService(_repo, _mapper.Object);
+            var account = new Account("testowyEmail@dot.com", "testowyUser", "testoweHaslo");
+            
+            await accountService.RegisterAsync(account.Email, account.Username, account.PasswordHash);
+            var result = await _repo.GetAsync(account.Email);
+
+            Assert.Multiple(() => {
+                Assert.AreEqual(account.Email, result.Email);
+                Assert.AreEqual(account.Username, result.Username);
+                Assert.AreEqual(account.PasswordHash, result.PasswordHash);
+            });
         }
 
         [Test]

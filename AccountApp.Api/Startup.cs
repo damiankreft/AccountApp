@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using AccountApp.Core.Repositories;
-using AccountApp.Infrastructure.Ioc.Modules;
+using AccountApp.Infrastructure.Ioc;
 using AccountApp.Infrastructure.Mappers;
 using AccountApp.Infrastructure.Repositories;
 using AccountApp.Infrastructure.Services;
@@ -42,10 +42,7 @@ namespace AccountApp.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterType<AccountService>().As<IAccountService>().InstancePerLifetimeScope();
-            builder.RegisterModule(new CommandModule());
-            builder.RegisterType<InMemoryAccountRepository>().As<IAccountRepository>().InstancePerLifetimeScope();
-            builder.RegisterInstance(AutoMapperConfig.Initialize()).SingleInstance();
+            builder.RegisterModule(new ContainerModule(Configuration));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
