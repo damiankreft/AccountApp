@@ -11,11 +11,13 @@ namespace AccountApp.Infrastructure.Services
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IEncrypter _encrypter;
         private readonly IMapper _mapper;
 
-        public AccountService(IAccountRepository accountRepository, IMapper mapper)
+        public AccountService(IAccountRepository accountRepository, IEncrypter encrypter, IMapper mapper)
         {
             _accountRepository = accountRepository;
+            _encrypter = encrypter;
             _mapper = mapper;
         }
 
@@ -38,6 +40,24 @@ namespace AccountApp.Infrastructure.Services
             return _mapper.Map<AccountDto>(account);
         }
 
+        public async Task LoginAsync(string email, string password)
+        {
+            var account = await _accountRepository.GetAsync(email);
+
+            if (account is null)
+            {
+                throw new Exception("Invalid credentials.");
+            }
+
+            var salt = _encrypter.GetSalt(password);
+            var hash = _encrypter.GetHash(password, salt);
+
+            if (account.PasswordHash != hash)
+            {
+                throw new Exception("Invalid credentials.");
+            }
+        }
+
         public async Task RegisterAsync(string email, string username, string password)
         {
             var account = await _accountRepository.GetAsync(email);
@@ -47,7 +67,10 @@ namespace AccountApp.Infrastructure.Services
                 throw new ArgumentException("This email is already used.");
             }
 
-            account = new Account(email, username, password);
+            var salt = _encrypter.GetSalt(password);
+            var hash = _encrypter.GetHash(password, salt);
+
+            account = new Account(email, username, hash);
             await _accountRepository.AddAsync(account);
         }
     }
