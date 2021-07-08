@@ -1,11 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
-using AccountApp.Core.Repositories;
 using AccountApp.Infrastructure.Ioc;
-using AccountApp.Infrastructure.Mappers;
-using AccountApp.Infrastructure.Repositories;
-using AccountApp.Infrastructure.Services;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
