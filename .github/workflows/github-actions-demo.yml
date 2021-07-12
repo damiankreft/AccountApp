@@ -1,11 +1,11 @@
-name: dotnet package
+name: RunTests
 on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ['3.0', '3.1.x', '5.0.x' ]
+        dotnet-version: [ '5.0.x' ]
 
     steps:
       - uses: actions/checkout@v2
@@ -14,8 +14,10 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore AccountApp.Api/AccountApp.Api.csproj
       - name: Build
-        run: dotnet build --configuration Release --no-restore
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet build --configuration Release --no-restore AccountApp.Api/AccountApp.Api.csproj
+      - name: Tests: Unit tests
+        run: dotnet test --verbosity normal AccountApp.Tests/AccountApp.Tests.csproj
+      - name: Tests: End to End
+        run: dotnet test --verbosity normal AccountApp.Tests/AccountApp.Tests.csproj
