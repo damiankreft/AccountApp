@@ -37,7 +37,7 @@ namespace AccountApp.Tests.Services
             _repository.Verify(x => x.AddAsync(It.IsAny<Account>()), Times.Once);
         }
 
-        // [Test]
+        [Test]
         public async Task registers_account_with_given_values()
         {
             var accountService = new AccountService(_repo, _encrypter.Object, _mapper.Object);
