@@ -4,6 +4,7 @@ using AccountApp.Infrastructure.Commands;
 using AccountApp.Infrastructure.Commands.Accounts;
 using AccountApp.Infrastructure.Dto;
 using AccountApp.Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,12 @@ namespace AccountApp.Api.Controllers
     public class AccountsController : ApiControllerBase
     {
         private readonly IAccountService _accountService;
-        
-        public AccountsController(IAccountService accountService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        private readonly IJwtHandler _jwtHandler;
+
+        public AccountsController(IAccountService accountService, IJwtHandler jwtHandler, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _accountService = accountService;
+            _jwtHandler = jwtHandler;
         }
 
         /// <summary>
@@ -39,6 +42,21 @@ namespace AccountApp.Api.Controllers
             var account = await _accountService.GetAsync(email);
 
             return account is null ? NotFound() : Json(account);
+        }
+
+        [HttpGet("token")]
+        public async Task<IActionResult> GetToken()
+        {
+            var token = _jwtHandler.CreateToken("myExampleEmail@example.com");
+
+            return Json(token);
+        }
+
+        [HttpGet("auth")]
+        [Authorize]
+        public async Task<IActionResult> GetAuthorization()
+        {
+            return Content("Access granted.");
         }
 
         /// <summary>
