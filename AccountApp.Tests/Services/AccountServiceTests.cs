@@ -37,23 +37,6 @@ namespace AccountApp.Tests.Services
             _repository.Verify(x => x.AddAsync(It.IsAny<Account>()), Times.Once);
         }
 
-        // TODO: Disable broken tests until its repaired
-        // [Test]
-        public async Task registers_account_with_given_values()
-        {
-            var accountService = new AccountService(_repo, _encrypter.Object, _mapper.Object);
-            var account = new Account("testowyEmail@dot.com", "testowyUser", "testoweHaslo");
-            
-            await accountService.RegisterAsync(account.Email, account.Username, account.PasswordHash);
-            var result = await _repo.GetAsync(account.Email);
-
-            Assert.Multiple(() => {
-                Assert.AreEqual(account.Email, result.Email);
-                Assert.AreEqual(account.Username, result.Username);
-                Assert.AreEqual(account.PasswordHash, result.PasswordHash);
-            });
-        }
-
         [Test]
         public async Task gets_all_accounts()
         {
