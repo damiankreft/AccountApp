@@ -64,7 +64,11 @@ namespace AccountApp.Api
         private void ConfigureJwtAuthentication(IServiceCollection services)
         {
             var jwtSettings = Configuration.Get<JwtSettings>();
-            var encodedKey = Encoding.UTF8.GetBytes(jwtSettings.Key);
+            
+
+            var nullKeyWorkaround = "confidentialKey123";
+            var encodedKey = Encoding.UTF8.GetBytes(nullKeyWorkaround);
+            // var encodedKey = Encoding.UTF8.GetBytes(jwtSettings.Key);
             services.AddAuthentication(options => 
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
