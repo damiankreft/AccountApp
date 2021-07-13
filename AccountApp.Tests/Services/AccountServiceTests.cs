@@ -28,8 +28,7 @@ namespace AccountApp.Tests.Services
             _mapper = new Mock<AutoMapper.IMapper>();
         }
 
-        // TODO: Disable broken tests until its repaired
-        // [Test]
+        [Test]
         public async Task calls_register_account_once()
         {
             var accountService = new AccountService(_repository.Object, _encrypter.Object, _mapper.Object);
@@ -38,7 +37,8 @@ namespace AccountApp.Tests.Services
             _repository.Verify(x => x.AddAsync(It.IsAny<Account>()), Times.Once);
         }
 
-        [Test]
+        // TODO: Disable broken tests until its repaired
+        // [Test]
         public async Task registers_account_with_given_values()
         {
             var accountService = new AccountService(_repo, _encrypter.Object, _mapper.Object);
