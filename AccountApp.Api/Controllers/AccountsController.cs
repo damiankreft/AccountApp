@@ -47,7 +47,7 @@ namespace AccountApp.Api.Controllers
         [HttpGet("token")]
         public async Task<IActionResult> GetToken()
         {
-            var token = _jwtHandler.CreateToken("myExampleEmail@example.com");
+            var token = await Task.FromResult(_jwtHandler.CreateToken("myExampleEmail@example.com"));
 
             return Json(token);
         }
@@ -56,7 +56,7 @@ namespace AccountApp.Api.Controllers
         [Authorize]
         public async Task<IActionResult> GetAuthorization()
         {
-            return Content("Access granted.");
+            return await Task.FromResult(Content("Access granted."));
         }
 
         /// <summary>
