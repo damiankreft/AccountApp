@@ -7,11 +7,10 @@ using AccountApp.Infrastructure.Dto;
 using AccountApp.Infrastructure.Repositories;
 using AccountApp.Infrastructure.Services;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace AccountApp.Tests.Services
 {
-    [TestFixture]
     public class AccountServiceTests
     {
         private Mock<IAccountRepository> _repository;
@@ -19,8 +18,7 @@ namespace AccountApp.Tests.Services
         private Mock<IEncrypter> _encrypter;
         private Mock<AutoMapper.IMapper> _mapper;
 
-        [SetUp]
-        public void Setup()
+        public AccountServiceTests()
         {
             _repository = new Mock<IAccountRepository>();
             _repo = new InMemoryAccountRepository();
@@ -28,7 +26,7 @@ namespace AccountApp.Tests.Services
             _mapper = new Mock<AutoMapper.IMapper>();
         }
 
-        [Test]
+        [Fact]
         public async Task calls_register_account_once()
         {
             var accountService = new AccountService(_repository.Object, _encrypter.Object, _mapper.Object);
@@ -37,7 +35,7 @@ namespace AccountApp.Tests.Services
             _repository.Verify(x => x.AddAsync(It.IsAny<Account>()), Times.Once);
         }
 
-        [Test]
+        [Fact]
         public async Task gets_all_accounts()
         {
             var accountService = new AccountService(_repository.Object, _encrypter.Object, _mapper.Object);
@@ -49,7 +47,7 @@ namespace AccountApp.Tests.Services
             _repository.Verify(x => x.GetAsync(It.IsAny<string>()), Times.Once);
         }
 
-        [Test]
+        [Fact]
         public async Task returns_account_with_given_email()
         {
             var repositoryMock = _repository;

@@ -1,31 +1,28 @@
 using AccountApp.Api;
 using AccountApp.Infrastructure.Dto;
 using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using NUnit.Framework;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Text;
-using Autofac.Extensions.DependencyInjection;
+using Xunit;
 
 namespace AccountApp.Tests.EndToEnd.Controllers
 {
-    [TestFixture]
-    public class AccountControllerTests
+    public class AccountControllerTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        private readonly TestServer _server;
-        private readonly HttpClient _client;
+        private readonly WebApplicationFactory<Startup> _factory;
+        private HttpClient _client;
 
-        public AccountControllerTests()
+        public AccountControllerTests(WebApplicationFactory<Startup> factory)
         {
-            _server = new TestServer(new WebHostBuilder().UseStartup<Startup>().ConfigureServices(services => services.AddAutofac()));
-            _client = _server.CreateClient();
+            _factory = factory;
+            _client = factory.CreateClient();
         }
 
-        [Test]
+        [Fact]
         public async Task returns_account_assigned_to_given_email()
         {
             var email = "test1@example.com";
@@ -35,7 +32,7 @@ namespace AccountApp.Tests.EndToEnd.Controllers
             account.Email.Should().BeEquivalentTo(email);
         }
 
-        [Test]
+        [Fact]
         public async Task returns_404_when_given_email_is_invalid()
         {
             var email = "invalidAccount123321123321@example.com";
@@ -43,7 +40,7 @@ namespace AccountApp.Tests.EndToEnd.Controllers
             response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.NotFound);
         }
 
-        [Test]
+        [Fact]
         public async Task creates_account_when_given_email_is_valid()
         {
              var email = "validUser@example.com";
