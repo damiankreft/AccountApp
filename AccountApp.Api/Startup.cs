@@ -11,6 +11,8 @@ namespace AccountApp.Api
 {
     public class Startup
     {
+        readonly string AllowedSpecificOrigins = "_allowedSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         public Startup(IWebHostEnvironment env, IConfiguration configuration)
@@ -20,6 +22,15 @@ namespace AccountApp.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: AllowedSpecificOrigins,
+                                builder =>
+                                {
+                                    builder.WithOrigins("http://localhost:4200");
+                                });
+            });
+
             services.AddControllersWithViews()
                     .AddJsonOptions(options 
                         => options.JsonSerializerOptions.WriteIndented = true);
@@ -36,7 +47,8 @@ namespace AccountApp.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseAuthentication()
+            app.UseCors(AllowedSpecificOrigins)
+                .UseAuthentication()
                 .UseDevelopmentConfiguration(env)
                 .ConfigureRouting();
         }
