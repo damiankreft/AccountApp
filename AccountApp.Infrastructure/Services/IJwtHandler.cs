@@ -4,6 +4,6 @@ namespace AccountApp.Infrastructure.Services
 {
     public interface IJwtHandler
     {
-        JwtDto CreateToken(string email);
+        JwtDto CreateToken(string email, string role);
     }
 }

@@ -2,8 +2,8 @@ namespace AccountApp.Infrastructure.Services
 {
     public interface IEncrypter 
     {
-        string GetSalt(string value);
-        string GetHash(string value, string salt);
+        string CreateSalt(string value);
+        string CreateHash(string value, string salt);
 
      }
 }

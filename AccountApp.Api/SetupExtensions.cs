@@ -38,27 +38,13 @@ namespace AccountApp.Api
         }
 
         /// <summary>
-        /// Adds developer exception page and swagger.
-        /// </summary>
-        /// <param name="app"></param>
-        /// <returns>A reference to this instance after the operation has completed.</returns>
-        public static IApplicationBuilder ConfigureRouting(this IApplicationBuilder app)
-            =>  app.UseRouting()
-                    .UseEndpoints(endpoints =>  
-                    {
-                        endpoints.MapGet("/", async context => { 
-                            await context.Response.WriteAsync("Hello, world!");
-                        });
-                        endpoints.MapControllers();
-                    });
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="services"></param>
         /// <param name="jwtSettings"></param>
+        /// <param name="securitySettings"></param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
-        public static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings)
+        public static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings, SecuritySettings securitySettings)
         {
             var encodedKey = Encoding.UTF8.GetBytes(jwtSettings.Key);
             services.AddAuthentication(options => 
@@ -68,7 +54,7 @@ namespace AccountApp.Api
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = jwtSettings.Issuer,
+                    ValidIssuer = securitySettings.JwtValidIssuer,
                     ValidateAudience = false,
                     IssuerSigningKey = new SymmetricSecurityKey(encodedKey)
                 };

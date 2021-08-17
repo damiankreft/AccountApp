@@ -17,12 +17,13 @@ namespace AccountApp.Infrastructure.Services
         {
             _settings = settings;
         }
-        public JwtDto CreateToken(string email)
+        public JwtDto CreateToken(string email, string role)
         {
             var now = DateTime.UtcNow;
             var claims = new Claim[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim(ClaimTypes.Role, role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString(), ClaimValueTypes.Integer64)
             };

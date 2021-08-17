@@ -9,7 +9,7 @@ namespace AccountApp.Infrastructure.Services
         private static readonly int _deriveBytesIterationCount = 10_000;
         private static readonly int _saltSize = 40;
 
-        public string GetSalt(string value)
+        public string CreateSalt(string value)
         {
             if (value.Empty())
             {
@@ -24,7 +24,7 @@ namespace AccountApp.Infrastructure.Services
             return Convert.ToBase64String(saltBytes);
         }
 
-        public string GetHash(string value, string salt)
+        public string CreateHash(string value, string salt)
         {
             if (value.Empty())
             {

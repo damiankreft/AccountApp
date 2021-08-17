@@ -5,6 +5,7 @@ using AccountApp.Core.Domain;
 using AccountApp.Core.Repositories;
 using AccountApp.Infrastructure.Dto;
 using AutoMapper;
+using InvalidCredentialException = System.Security.Authentication.InvalidCredentialException;
 
 namespace AccountApp.Infrastructure.Services
 {
@@ -46,15 +47,15 @@ namespace AccountApp.Infrastructure.Services
 
             if (account is null)
             {
-                throw new Exception("Invalid credentials.");
+                throw new InvalidCredentialException();
             }
 
-            var salt = _encrypter.GetSalt(password);
-            var hash = _encrypter.GetHash(password, salt);
+            var salt = account.Salt;
+            var hash = _encrypter.CreateHash(password, salt);
 
-            if (account.PasswordHash != hash)
+            if (account.Password != hash)
             {
-                throw new Exception("Invalid credentials.");
+                throw new InvalidCredentialException();
             }
         }
 
@@ -67,10 +68,10 @@ namespace AccountApp.Infrastructure.Services
                 throw new ArgumentException("This email is already used.");
             }
 
-            var salt = _encrypter.GetSalt(password);
-            var hash = _encrypter.GetHash(password, salt);
+            var salt = _encrypter.CreateSalt(password);
+            var hash = _encrypter.CreateHash(password, salt);
 
-            account = new Account(email, username, hash);
+            account = new Account(email, username, hash, salt);
             await _accountRepository.AddAsync(account);
         }
     }

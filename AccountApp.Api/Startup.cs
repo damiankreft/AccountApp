@@ -4,6 +4,7 @@ using AccountApp.Infrastructure.Settings;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,12 +23,15 @@ namespace AccountApp.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var jwtSettings = Configuration.GetSettings<JwtSettings>();
+            var securitySettings = Configuration.GetSettings<SecuritySettings>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy(name: AllowedSpecificOrigins,
                                 builder =>
                                 {
-                                    builder.WithOrigins("http://localhost:4200");
+                                    builder.WithOrigins(securitySettings.CorsAllowedOrigins);
                                 });
             });
 
@@ -35,8 +39,9 @@ namespace AccountApp.Api
                     .AddJsonOptions(options 
                         => options.JsonSerializerOptions.WriteIndented = true);
 
-            var jwtSettings = Configuration.GetSettings<JwtSettings>();
-            services.ConfigureJwtAuthentication(jwtSettings);
+            services.ConfigureJwtAuthentication(jwtSettings, securitySettings);
+            services.AddAuthorization();
+            
             services.ConfigureSwagger();
         }
 
@@ -50,7 +55,15 @@ namespace AccountApp.Api
             app.UseCors(AllowedSpecificOrigins)
                 .UseAuthentication()
                 .UseDevelopmentConfiguration(env)
-                .ConfigureRouting();
+                .UseRouting()
+                .UseAuthorization()
+                .UseEndpoints(endpoints =>  
+                    {
+                        endpoints.MapGet("/", async context => { 
+                            await context.Response.WriteAsync("Hello, world!");
+                        });
+                        endpoints.MapControllers();
+                    });
         }
     }
 }

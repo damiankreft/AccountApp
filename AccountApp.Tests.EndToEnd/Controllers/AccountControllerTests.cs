@@ -30,6 +30,7 @@ namespace AccountApp.Tests.EndToEnd.Controllers
             var account = await GetAccountAsync(email);
 
             account.Email.Should().BeEquivalentTo(email);
+            
         }
 
         [Fact]

@@ -25,6 +25,7 @@ namespace AccountApp.Api.Controllers
         /// Gets all accounts
         /// </summary>
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<AccountDto>>> GetAll()
         {
             var accounts = await _accountService.GetAllAsync();
@@ -44,10 +45,9 @@ namespace AccountApp.Api.Controllers
             return account is null ? NotFound() : Json(account);
         }
 
-        [HttpGet("token")]
-        public async Task<IActionResult> GetToken()
+        public async Task<IActionResult> GetToken(string email, string role)
         {
-            var token = await Task.FromResult(_jwtHandler.CreateToken("myExampleEmail@example.com"));
+            var token = await Task.FromResult(_jwtHandler.CreateToken(email, role));
 
             return Json(token);
         }
@@ -59,8 +59,28 @@ namespace AccountApp.Api.Controllers
             return await Task.FromResult(Content("Access granted."));
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody]Login command)
+        {
+            try
+            {
+                await _accountService.LoginAsync(command.Email, command.Password);
+                var account = await _accountService.GetAsync(command.Email);
+                
+                return await GetToken(command.Email, account.Role);
+            }
+            catch (System.Security.Authentication.InvalidCredentialException)
+            {
+                return Content("Do not steal!");
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
         /// <summary>
-        /// Post new account.
+        /// Create a new account.
         /// </summary>
         /// <param name="command"></param>
         [HttpPost]
