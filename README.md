@@ -6,16 +6,16 @@ It's just a simple API, the first step on my path to learn Angular :fire:
 ### A bunch of helpful info:<br/>
  - ***RESTful API***
  - ***The Onion Architecture***
- - ***.NET 5.0*** ✨
- - ***Unit testing (NUnit, Moq, FluentAssertions)***
- - ***DI (Autofac)*** 
+ - ***JWT Authorization***
  - ***Commands & Handlers (as a part of CQRS)***
+ - ***Unit testing (NUnit, Moq, FluentAssertions)***
+ - ***.NET 5.0*** ✨
+ - ***DI (Autofac)*** 
  - ***Swagger (via Swashbuckle)***
  - ***Markdown (.md) :wink:***
  
  ### In the near future:
  - ***Queries (CQRS)***
- - ***JWT Authorization***
  - ***Docker***
  - ***Entity Framework Core***
  - ***Angular***
