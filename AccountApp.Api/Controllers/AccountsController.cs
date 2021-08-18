@@ -52,13 +52,6 @@ namespace AccountApp.Api.Controllers
             return Json(token);
         }
 
-        [HttpGet("auth")]
-        [Authorize]
-        public async Task<IActionResult> GetAuthorization()
-        {
-            return await Task.FromResult(Content("Access granted."));
-        }
-
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]Login command)
         {
