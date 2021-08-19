@@ -18,4 +18,4 @@ It's just a simple API, the first step on my path to learn Angular :fire:
  - ***Queries (CQRS)***
  - ***Docker***
  - ***Entity Framework Core***
- - ***Angular***
+ - ***Angular*** (https://github.com/damiankreft/SomeAngularApp)
