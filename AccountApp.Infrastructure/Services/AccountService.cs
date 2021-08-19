@@ -59,7 +59,7 @@ namespace AccountApp.Infrastructure.Services
             }
         }
 
-        public async Task RegisterAsync(string email, string username, string password)
+        public async Task RegisterAsync(string email, string username, string password, string role)
         {
             var account = await _accountRepository.GetAsync(email);
 
@@ -71,7 +71,7 @@ namespace AccountApp.Infrastructure.Services
             var salt = _encrypter.CreateSalt(password);
             var hash = _encrypter.CreateHash(password, salt);
 
-            account = new Account(email, username, hash, salt);
+            account = new Account(email, username, hash, salt, role);
             await _accountRepository.AddAsync(account);
         }
     }

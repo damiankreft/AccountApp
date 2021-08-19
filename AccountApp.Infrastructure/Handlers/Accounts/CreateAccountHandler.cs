@@ -16,7 +16,7 @@ namespace AccountApp.Infrastructure.Handlers.Accounts
 
         public async Task HandleAsync(CreateAccount command)
         {
-            await _accountService.RegisterAsync(command.Email, command.Username, command.Password);
+            await _accountService.RegisterAsync(command.Email, command.Username, command.Password, command.Role);
         }
     }
 }

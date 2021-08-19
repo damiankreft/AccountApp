@@ -10,8 +10,8 @@ namespace AccountApp.Infrastructure.Repositories
     {
         public static ISet<Account> _accounts = new HashSet<Account>
         {
-            new Account("test1@example.com", "Fureya", "nF+P29uNPG9J1ZFczoc4LuP1EDawerwWegEYp63BtSDenarJwyCCIA==", "someSalt"),
-            new Account("example@test.com", "Soja", "passwordSecret", "someSalt"),
+            new Account("test1@example.com", "Fureya", "nF+P29uNPG9J1ZFczoc4LuP1EDawerwWegEYp63BtSDenarJwyCCIA==", "someSalt", "user"),
+            new Account("example@test.com", "Soja", "passwordSecret", "someSalt", "admin"),
         };
 
         public async Task AddAsync(Account account)

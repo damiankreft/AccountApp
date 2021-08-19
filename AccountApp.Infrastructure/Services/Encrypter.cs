@@ -16,7 +16,6 @@ namespace AccountApp.Infrastructure.Services
                 throw new ArgumentException("Cannot generate salt from an empty string.");
             }
 
-            var random = new Random();
             var saltBytes = new byte[_saltSize];
             var rng = RandomNumberGenerator.Create();
             rng.GetBytes(saltBytes);

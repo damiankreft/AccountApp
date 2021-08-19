@@ -8,7 +8,7 @@ namespace AccountApp.Infrastructure.Services
     {
         Task<List<AccountDto>> GetAllAsync();
         Task<AccountDto> GetAsync(string email);
-        Task RegisterAsync(string email, string username, string password);
+        Task RegisterAsync(string email, string username, string password, string role);
         Task LoginAsync(string email, string password);
     }
 }

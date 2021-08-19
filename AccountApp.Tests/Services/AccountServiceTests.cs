@@ -1,9 +1,6 @@
-
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AccountApp.Core.Domain;
 using AccountApp.Core.Repositories;
-using AccountApp.Infrastructure.Dto;
 using AccountApp.Infrastructure.Repositories;
 using AccountApp.Infrastructure.Services;
 using Moq;
@@ -30,7 +27,7 @@ namespace AccountApp.Tests.Services
         public async Task calls_register_account_once()
         {
             var accountService = new AccountService(_repository.Object, _encrypter.Object, _mapper.Object);
-            await accountService.RegisterAsync("testowyEmail@dot.com", "testowyUser", "testoweHaslo");
+            await accountService.RegisterAsync("testowyEmail@dot.com", "testowyUser", "testoweHaslo", "user");
             
             _repository.Verify(x => x.AddAsync(It.IsAny<Account>()), Times.Once);
         }
@@ -41,7 +38,7 @@ namespace AccountApp.Tests.Services
             var accountService = new AccountService(_repository.Object, _encrypter.Object, _mapper.Object);
             await accountService.GetAsync("email@example.com");
 
-            var account = new Account("email@example.com", "username", "passwd", "someSalt");
+            var account = new Account("email@example.com", "username", "passwd", "someSalt", "user");
             _repository.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(() => null);
 
             _repository.Verify(x => x.GetAsync(It.IsAny<string>()), Times.Once);
@@ -56,7 +53,7 @@ namespace AccountApp.Tests.Services
             var accountService = new AccountService(repositoryMock.Object, _encrypter.Object, mapperMock.Object);
             await accountService.GetAsync("email@example.com");
 
-            var account = new Account("email@example.com", "username", "passwd", "someSalt");
+            var account = new Account("email@example.com", "username", "passwd", "someSalt", "user");
             repositoryMock.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(account);
 
             repositoryMock.Verify(x => x.GetAsync(It.IsAny<string>()), Times.Once);
