@@ -3,11 +3,13 @@ using AccountApp.Infrastructure.Dto;
 using FluentAssertions;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Moq;
+using Newtonsoft.Json;
 using System.Net;
 using System.Text;
 using Xunit;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AccountApp.Tests.EndToEnd.Controllers
 {
@@ -54,6 +56,23 @@ namespace AccountApp.Tests.EndToEnd.Controllers
 
              response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.Created);
              response.Headers.Location.ToString().Should().BeEquivalentTo($"accounts/{account.Email}");
+        }
+
+        [Fact]
+        public async Task returns_jwt_token_when_email_is_valid()
+        {
+            var json = JsonConvert.SerializeObject( new { email = "test1@example.com", password = "secretPassword" });
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var token = await _client.PostAsync($"https://localhost:5001/accounts/login", content);
+
+            var responseContent = await token.Content.ReadAsStringAsync();
+            var responseJson = JsonConvert.DeserializeObject<JwtDto>(responseContent);
+
+            token.IsSuccessStatusCode.Should().BeTrue();
+
+            responseJson.Should().NotBeNull();
+            responseJson.Token.Should().NotBeNullOrEmpty();
+            responseJson.Expiry.Should().BePositive();
         }
 
         private static StringContent GetHttpPayload(object data)
