@@ -19,5 +19,5 @@ jobs:
         run: dotnet build --configuration Release --no-restore AccountApp.Api/AccountApp.Api.csproj
       - name: Run Unit tests
         run: dotnet test --verbosity normal AccountApp.Tests/AccountApp.Tests.csproj
-#      - name: Run End to End
-#        run: dotnet test --verbosity normal AccountApp.Tests/AccountApp.Tests.csproj
+      - name: Run End to End
+        run: dotnet test --verbosity normal AccountApp.Tests.EndToEnd/AccountApp.Tests.EndToEnd.csproj
