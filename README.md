@@ -8,7 +8,7 @@ It's just a simple API, the first step on my path to learn Angular :fire:
  - ***The Onion Architecture***
  - ***JWT Authorization***
  - ***Commands & Handlers (as a part of CQRS)***
- - ***Unit testing (NUnit, Moq, FluentAssertions)***
+ - ***Unit testing (XUnit, Moq, FluentAssertions)***
  - ***.NET 5.0*** ✨
  - ***DI (Autofac)*** 
  - ***Swagger (via Swashbuckle)***
