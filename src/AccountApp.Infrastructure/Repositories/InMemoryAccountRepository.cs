@@ -8,25 +8,7 @@ namespace AccountApp.Infrastructure.Repositories
 {
     public class InMemoryAccountRepository : IAccountRepository
     {
-        public static ISet<Account> _accounts = new HashSet<Account>
-        {
-            new Account() 
-            {
-                Email = "test1@example.com", 
-                Username = "Fureya", 
-                Password = "nF+P29uNPG9J1ZFczoc4LuP1EDawerwWegEYp63BtSDenarJwyCCIA==",
-                Salt =  "someSalt",
-                Role = "user"
-            },
-            new Account()
-            {
-                Email = "example@test.com",
-                Username =  "Soja",
-                Password =  "passwordSecret", 
-                Salt = "someSalt",
-                Role = "user"
-            },
-        };
+        public static ISet<Account> _accounts = new HashSet<Account>();
 
         public async Task AddAsync(Account account)
         {
