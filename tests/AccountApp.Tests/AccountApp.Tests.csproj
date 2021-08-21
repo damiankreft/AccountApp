@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AccountApp.Infrastructure\AccountApp.Infrastructure.csproj" />
-    <ProjectReference Include="..\AccountApp.Core\AccountApp.Core.csproj" />
+    <ProjectReference Include="..\..\src\AccountApp.Infrastructure\AccountApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\AccountApp.Core\AccountApp.Core.csproj" />
   </ItemGroup>
 
 </Project>
