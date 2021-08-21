@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\AccountApp.Core\AccountApp.Core.csproj" />
+    <ProjectReference Include="..\src\AccountApp.Core\AccountApp.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
