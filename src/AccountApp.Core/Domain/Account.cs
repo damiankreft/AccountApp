@@ -15,12 +15,13 @@ namespace AccountApp.Core.Domain
 
         public Account() {} 
 
-        public Account(string email, string username, string password, string salt)
+        public Account(string email, string username, string password, string salt, string role)
         {
             Email = email;
             Username = username;
             Password = password;
             Salt = salt;
+            Role = role;
         }
     }
 }
