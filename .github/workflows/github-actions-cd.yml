@@ -9,15 +9,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}.
         uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Install dependencies
+      - name: Install dependencies.
         run: dotnet restore AccountApp.Api/AccountApp.Api.csproj
-      - name: Build
+      - name: Build projects.
         run: dotnet build --configuration Release --no-restore AccountApp.Api/AccountApp.Api.csproj
-      - name: Run Unit tests
+      - name: Run Unit tests.
         run: dotnet test --verbosity quiet AccountApp.Tests/AccountApp.Tests.csproj
-      - name: Run End to End
+      - name: Run End to End tests.
         run: dotnet test --verbosity quiet AccountApp.Tests.EndToEnd/AccountApp.Tests.EndToEnd.csproj
