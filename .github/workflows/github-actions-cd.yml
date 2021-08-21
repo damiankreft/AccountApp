@@ -14,10 +14,10 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies.
-        run: dotnet restore AccountApp.Api/AccountApp.Api.csproj
+        run: dotnet restore src/AccountApp.Api/AccountApp.Api.csproj
       - name: Build projects.
-        run: dotnet build --configuration Release --no-restore AccountApp.Api/AccountApp.Api.csproj
+        run: dotnet build --configuration Release --no-restore src/AccountApp.Api/AccountApp.Api.csproj
       - name: Run Unit tests.
-        run: dotnet test --verbosity quiet AccountApp.Tests/AccountApp.Tests.csproj
+        run: dotnet test --verbosity quiet tests/AccountApp.Tests/AccountApp.Tests.csproj
       - name: Run End to End tests.
-        run: dotnet test --verbosity quiet AccountApp.Tests.EndToEnd/AccountApp.Tests.EndToEnd.csproj
+        run: dotnet test --verbosity quiet tests/AccountApp.Tests.EndToEnd/AccountApp.Tests.EndToEnd.csproj
