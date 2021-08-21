@@ -33,16 +33,13 @@ namespace AccountApp.Api
                                 {
                                     builder.WithOrigins(securitySettings.CorsAllowedOrigins);
                                 });
-            });
-
-            services.AddControllersWithViews()
+            }).AddMemoryCache()
+                    .AddControllersWithViews()
                     .AddJsonOptions(options 
                         => options.JsonSerializerOptions.WriteIndented = true);
-
-            services.ConfigureJwtAuthentication(jwtSettings, securitySettings);
-            services.AddAuthorization();
-            
-            services.ConfigureSwagger();
+            services.ConfigureJwtAuthentication(jwtSettings, securitySettings)
+                    .AddAuthorization()
+                    .ConfigureSwagger();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

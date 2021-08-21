@@ -2,24 +2,25 @@ namespace AccountApp.Core.Domain
 {
     public class Account
     {
-        public int Id { get; protected set; }
-        public string Username { get; protected set; }
-        public string Password { get; protected set; }
-        public string Salt { get; protected set; }
-        public string Role { get; protected set; }
+        public int Id { get;  set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Salt { get;  set; }
+        public string Role { get; set; }
         public string Email { get; set; }
         public string RegistrationEmail { get; set; }
-        public string LastIp { get; protected set;}
-        public string LastAttemptIp { get; protected set; }
-        public string Os { get; protected set; }
+        public string LastIp { get;  set;}
+        public string LastAttemptIp { get;  set; }
+        public string Os { get; set; }
 
-        public Account(string email, string username, string password, string salt, string role)
+        public Account() {} 
+
+        public Account(string email, string username, string password, string salt)
         {
             Email = email;
             Username = username;
             Password = password;
             Salt = salt;
-            Role = role;
         }
     }
 }

@@ -7,11 +7,11 @@ namespace AccountApp.Api.Controllers
     [ApiController]
     public abstract class ApiControllerBase : Controller
     {
-        protected readonly ICommandDispatcher _commandDispatcher;
+        protected readonly ICommandDispatcher CommandDispatcher;
         
         protected ApiControllerBase(ICommandDispatcher commandDispatcher)
         {
-            _commandDispatcher = commandDispatcher;
+            CommandDispatcher = commandDispatcher;
         }
     }
 }
