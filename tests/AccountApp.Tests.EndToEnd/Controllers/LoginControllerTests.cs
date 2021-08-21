@@ -17,7 +17,7 @@ namespace AccountApp.Tests.EndToEnd.Controllers
         [Fact]
         public async Task returns_jwt_token_when_email_is_valid()
         {
-            var json = JsonConvert.SerializeObject( new { email = "test1@example.com", password = "secretPassword" });
+            var json = JsonConvert.SerializeObject( new { email = "user1@example.com", password = "secretPassword" });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var token = await _client.PostAsync($"https://localhost:5001/login", content);
 

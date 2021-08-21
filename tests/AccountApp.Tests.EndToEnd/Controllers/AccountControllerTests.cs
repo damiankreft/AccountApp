@@ -18,7 +18,7 @@ namespace AccountApp.Tests.EndToEnd.Controllers
         [Fact]
         public async Task returns_account_assigned_to_given_email()
         {
-            var email = "test1@example.com";
+            var email = "user1@example.com";
 
             var account = await GetAccountAsync(email);
 
@@ -39,8 +39,8 @@ namespace AccountApp.Tests.EndToEnd.Controllers
         {
              var email = "validUser@example.com";
              var username = "validUser";
-             var passwordHash = "D9F7165457A43834AAD524F80717553E0B73CF7E79F40BEBDC316B7A2B26FF7B";
-             var account = new { Email = email, Username = username, Password = passwordHash };
+             var password = "D9F7165457A43834AAD524F80717553E0B73CF7E79F40BEBDC316B7A2B26FF7B";
+             var account = new { Email = email, Username = username, Password = password };
              var payload = GetHttpPayload(account);
              
              var response = await _client.PostAsync("accounts", payload);
