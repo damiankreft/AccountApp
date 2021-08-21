@@ -20,12 +20,26 @@ namespace AccountApp.Infrastructure.Services
             
             for (var i = 0; i < 10; i++)
             {
-                tasks.Add(_accountService.RegisterAsync($"user{i}@example.com", $"user{i}", "secretPassword", "user"));
+                var user = new { 
+                    Email = $"user{i}@example.com",
+                    Username = $"user{i}",
+                    Password = "secretPassword",
+                    Role = "user"
+                };
+                tasks.Add(_accountService.RegisterAsync(user.Email, user.Username, user.Password, user.Role));
+                _logger.Log(LogLevel.Trace, $"Created a new user={user.Username} with role={user.Role}");
             }
 
             for (var i = 0; i < 3; i++)
             {
-                tasks.Add(_accountService.RegisterAsync($"admin{i}@example.com", $"admin{i}", "secretPassword", "admin"));
+                var user = new { 
+                    Email = $"admin{i}@example.com",
+                    Username = $"admin{i}",
+                    Password = "secretPassword",
+                    Role = "admin"
+                };
+                tasks.Add(_accountService.RegisterAsync(user.Email, user.Username, user.Password, user.Role));
+                _logger.Log(LogLevel.Trace, $"Created a new user={user.Username} with role={user.Role}");
             }
 
             await Task.WhenAll(tasks);
