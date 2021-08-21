@@ -38,7 +38,7 @@ namespace AccountApp.Api
                     .AddControllersWithViews()
                     .AddJsonOptions(options 
                         => options.JsonSerializerOptions.WriteIndented = true);
-            services.ConfigureJwtAuthentication(jwtSettings, securitySettings)
+            services.AddJwtAuthentication(jwtSettings, securitySettings)
                     .AddAuthorization()
                     .ConfigureSwagger();
         }

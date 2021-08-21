@@ -44,7 +44,7 @@ namespace AccountApp.Api
         /// <param name="jwtSettings"></param>
         /// <param name="securitySettings"></param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
-        public static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings, SecuritySettings securitySettings)
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings, SecuritySettings securitySettings)
         {
             var encodedKey = Encoding.UTF8.GetBytes(jwtSettings.Key);
             services.AddAuthentication(options => 
