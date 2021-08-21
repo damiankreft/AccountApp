@@ -1,5 +1,6 @@
 using AccountApp.Infrastructure.Extensions;
 using AccountApp.Infrastructure.Ioc;
+using AccountApp.Infrastructure.Services;
 using AccountApp.Infrastructure.Settings;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
@@ -61,6 +62,13 @@ namespace AccountApp.Api
                         });
                         endpoints.MapControllers();
                     });
+
+            var generalSettings = Configuration.GetSettings<GeneralSettings>();
+            if (generalSettings.SeedData)
+            {
+                var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+                dataInitializer.SeedAsync();
+            }
         }
     }
 }
