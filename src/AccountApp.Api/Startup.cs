@@ -32,7 +32,10 @@ namespace AccountApp.Api
                 options.AddPolicy(name: AllowedSpecificOrigins,
                                 builder =>
                                 {
-                                    builder.WithOrigins(securitySettings.CorsAllowedOrigins);
+                                    builder.WithOrigins(securitySettings.CorsAllowedOrigins)
+                                        .AllowAnyHeader()
+                                        .AllowAnyMethod()
+                                        .AllowCredentials();
                                 });
             }).AddMemoryCache()
                     .AddControllersWithViews()
