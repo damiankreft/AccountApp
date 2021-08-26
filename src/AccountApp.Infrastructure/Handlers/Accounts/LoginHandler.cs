@@ -1,3 +1,4 @@
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using AccountApp.Infrastructure.Commands;
 using AccountApp.Infrastructure.Commands.Accounts;
@@ -22,10 +23,21 @@ namespace AccountApp.Infrastructure.Handlers.Accounts
 
         public async Task HandleAsync(Login command)
         {
-            await _accountService.LoginAsync(command.Email, command.Password);
-            var account = await _accountService.GetAsync(command.Email);
-            var jwt = _jwtHandler.CreateToken(command.Email, account.Role);
-            _cache.SetJwt(command.TokenId, jwt);
+            try
+            {
+                await _accountService.LoginAsync(command.Email, command.Password);
+                var account = await _accountService.GetAsync(command.Email);
+                var jwt = _jwtHandler.CreateToken(command.Email, account.Role);
+                _cache.SetJwt(command.TokenId, jwt);
+            }
+            catch (InvalidCredentialException)
+            {
+                throw;
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
     }
 }

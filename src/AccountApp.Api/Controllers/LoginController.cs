@@ -1,8 +1,10 @@
 using System;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using AccountApp.Infrastructure.Commands;
 using AccountApp.Infrastructure.Commands.Accounts;
 using AccountApp.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -19,11 +21,23 @@ namespace AccountApp.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody]Login command)
         {
-            command.TokenId = Guid.NewGuid();
-            await CommandDispatcher.DispatchAsync(command);
-            var jwt = _cache.GetJwt(command.TokenId);
+            try
+            {
+                command.TokenId = Guid.NewGuid();
+                await CommandDispatcher.DispatchAsync(command);
+                var jwt = _cache.GetJwt(command.TokenId);
 
-            return Json(jwt);
+                return Json(jwt);
+            }
+            catch (InvalidCredentialException)
+            {
+                return Unauthorized("Wrong email or password. Try again.");
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            
         }
     }
 }
