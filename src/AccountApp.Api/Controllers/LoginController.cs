@@ -18,6 +18,11 @@ namespace AccountApp.Api.Controllers
             _cache = cache;
         }
 
+        /// <summary>
+        /// JSON Web Token authentication.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns>JSON Web Token on successful authentication, otherwise returns HttpResponse 401 - Unauthorized.</returns>
         [HttpPost]
         public async Task<IActionResult> Login([FromBody]Login command)
         {
@@ -37,7 +42,6 @@ namespace AccountApp.Api.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            
         }
     }
 }
