@@ -1,9 +1,9 @@
-This project is being made to learn about cool stuff
+This project is being made to learn about cool stuff and enrich my knowledge.
 ---------------------------------------------------------------------------------------
 
 It's just a simple API, the first step on my path to learn Angular :fire:
 
-### A bunch of helpful info:<br/>
+### A bunch of helpful info about this repository:<br/>
 
 - ***RESTful API***
 - ***The Onion Architecture***
@@ -13,7 +13,6 @@ It's just a simple API, the first step on my path to learn Angular :fire:
 - ***.NET 5.0*** ✨
 - ***DI (Autofac)***
 - ***Swagger (via Swashbuckle)***
-- ***Markdown (.md) :wink:***
 - ***Angular*** (<https://github.com/damiankreft/SomeAngularApp>)
 
 ### In the near future
