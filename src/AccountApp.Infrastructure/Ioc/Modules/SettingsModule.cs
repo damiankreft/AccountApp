@@ -1,3 +1,4 @@
+using AccountApp.Infrastructure.EntityFramework;
 using AccountApp.Infrastructure.Extensions;
 using AccountApp.Infrastructure.Settings;
 using Autofac;
@@ -20,6 +21,9 @@ namespace AccountApp.Infrastructure.Ioc.Modules
                 .SingleInstance();
 
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>())
+                .SingleInstance();
+
+            builder.RegisterInstance(_configuration.GetSettings<SqlSettings>())
                 .SingleInstance();
         }
     }

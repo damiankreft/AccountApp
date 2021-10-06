@@ -72,6 +72,7 @@ namespace AccountApp.Infrastructure.Services
             var hash = _encrypter.CreateHash(password, salt);
 
             account = new Account(email, username, hash, salt, role);
+            account.Id = new Random().Next();
             await _accountRepository.AddAsync(account);
         }
     }

@@ -19,6 +19,7 @@ namespace AccountApp.Infrastructure.Ioc
             builder.RegisterModule(new CommandModule());
             builder.RegisterModule(new SettingsModule(_configuration));
             builder.RegisterModule<RepositoryModule>();
+            builder.RegisterModule<SqlModule>();
             builder.RegisterModule<ServiceModule>();
             builder.RegisterInstance(AutoMapperConfig.Initialize())
                 .SingleInstance();

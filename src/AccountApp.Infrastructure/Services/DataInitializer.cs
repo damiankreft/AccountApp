@@ -27,7 +27,7 @@ namespace AccountApp.Infrastructure.Services
                     Role = "user",
                     LastAttemptIp = "189.47.211.214"
                 };
-                tasks.Add(_accountService.RegisterAsync(user.Email, user.Username, user.Password, user.Role));
+                await _accountService.RegisterAsync(user.Email, user.Username, user.Password, user.Role);
                 _logger.Log(LogLevel.Trace, $"Created a new user={user.Username} with role={user.Role}");
             }
 
@@ -40,11 +40,10 @@ namespace AccountApp.Infrastructure.Services
                     Role = "admin",
                     LastAttemptIp = "127.0.0.1"
                 };
-                tasks.Add(_accountService.RegisterAsync(user.Email, user.Username, user.Password, user.Role));
+                await _accountService.RegisterAsync(user.Email, user.Username, user.Password, user.Role);
                 _logger.Log(LogLevel.Trace, $"Created a new user={user.Username} with role={user.Role}");
             }
 
-            await Task.WhenAll(tasks);
             _logger.Log(LogLevel.Trace, "Data initialization has finished successfully.");
         }
     }

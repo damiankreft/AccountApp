@@ -1,3 +1,4 @@
+using AccountApp.Infrastructure.EntityFramework;
 using AccountApp.Infrastructure.Extensions;
 using AccountApp.Infrastructure.Ioc;
 using AccountApp.Infrastructure.Services;
@@ -44,6 +45,10 @@ namespace AccountApp.Api
             services.AddJwtAuthentication(jwtSettings, securitySettings)
                     .AddAuthorization()
                     .ConfigureSwagger();
+
+            services.AddEntityFrameworkSqlServer()
+                    .AddEntityFrameworkInMemoryDatabase()
+                    .AddDbContext<AccountContext>();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
