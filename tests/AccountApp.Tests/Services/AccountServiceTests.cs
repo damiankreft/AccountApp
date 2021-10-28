@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AccountApp.Core.Domain;
 using AccountApp.Core.Repositories;
@@ -38,7 +39,7 @@ namespace AccountApp.Tests.Services
             var accountService = new AccountService(_repository.Object, _encrypter.Object, _mapper.Object);
             await accountService.GetAsync("email@example.com");
 
-            var account = new Account("email@example.com", "username", "passwd", "someSalt", "user");
+            var account = new Account(Guid.NewGuid(), "email@example.com", "username", "passwd", "someSalt", "user");
             _repository.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(() => null);
 
             _repository.Verify(x => x.GetAsync(It.IsAny<string>()), Times.Once);
@@ -53,7 +54,7 @@ namespace AccountApp.Tests.Services
             var accountService = new AccountService(repositoryMock.Object, _encrypter.Object, mapperMock.Object);
             await accountService.GetAsync("email@example.com");
 
-            var account = new Account("email@example.com", "username", "passwd", "someSalt", "user");
+            var account = new Account(Guid.NewGuid(), "email@example.com", "username", "passwd", "someSalt", "user");
             repositoryMock.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(account);
 
             repositoryMock.Verify(x => x.GetAsync(It.IsAny<string>()), Times.Once);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AccountApp.Core.Domain;
@@ -24,7 +25,7 @@ namespace AccountApp.Infrastructure.Repositories
         public async Task<IEnumerable<Account>> GetAllAsync()
         => await _context.Accounts.ToListAsync();
 
-        public async Task<Account> GetAsync(int id)
+        public async Task<Account> GetAsync(Guid id)
         => await _context.Accounts.SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task<Account> GetAsync(string email)
