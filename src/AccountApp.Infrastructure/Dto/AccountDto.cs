@@ -1,8 +1,10 @@
+using System;
+
 namespace AccountApp.Infrastructure.Dto
 {
     public class AccountDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string Role { get; init; }
@@ -10,7 +12,7 @@ namespace AccountApp.Infrastructure.Dto
 
         public AccountDto() { }
 
-        public AccountDto(string email, string role, int id, string username, string lastAttemptIp)
+        public AccountDto(string email, string role, Guid id, string username, string lastAttemptIp)
         {
             Email = email;
             Role = role;
