@@ -30,12 +30,14 @@ namespace AccountApp.Infrastructure.Handlers.Accounts
                 var jwt = _jwtHandler.CreateToken(command.Email, account.Role);
                 _cache.SetJwt(command.TokenId, jwt);
             }
-            catch (InvalidCredentialException)
+            catch (InvalidCredentialException ex)
             {
+                // log exception
                 throw;
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                // log exception
                 throw;
             }
         }
