@@ -23,7 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\AccountApp.Api\AccountApp.Api.csproj" />
     <ProjectReference Include="..\..\src\AccountApp.Infrastructure\AccountApp.Infrastructure.csproj" />
-    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
