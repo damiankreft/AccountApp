@@ -1,9 +1,7 @@
-using AccountApp.Api;
 using AccountApp.Infrastructure.Dto;
 using FluentAssertions;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
@@ -11,9 +9,14 @@ using Xunit;
 
 namespace AccountApp.Tests.EndToEnd.Controllers
 {
-    public class AccountControllerTests : ControllerTestBase
+    [Collection("ControllerTests")]
+    public class AccountControllerTests
     {
-        public AccountControllerTests(WebApplicationFactory<Startup> factory) : base(factory) { }
+        private readonly ControllerTestsFixture _fixture;
+        public AccountControllerTests(ControllerTestsFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Fact]
         public async Task returns_account_assigned_to_given_email()
@@ -23,14 +26,13 @@ namespace AccountApp.Tests.EndToEnd.Controllers
             var account = await GetAccountAsync(email);
 
             account.Email.Should().BeEquivalentTo(email);
-            
         }
 
         [Fact]
         public async Task returns_404_when_given_email_is_invalid()
         {
             var email = "invalidAccount123321123321@example.com";
-            var response = await _client.GetAsync($"accounts/{email}");
+            var response = await _fixture.GetClient().GetAsync($"accounts/{email}");
             response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.NotFound);
         }
 
@@ -43,7 +45,7 @@ namespace AccountApp.Tests.EndToEnd.Controllers
              var account = new { Email = email, Username = username, Password = password };
              var payload = GetHttpPayload(account);
              
-             var response = await _client.PostAsync("accounts", payload);
+             var response = await _fixture.GetClient().PostAsync("accounts", payload);
 
              response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.Created);
              response.Headers.Location.ToString().Should().BeEquivalentTo($"accounts/{account.Email}");
@@ -59,9 +61,9 @@ namespace AccountApp.Tests.EndToEnd.Controllers
 
         private async Task<AccountDto> GetAccountAsync(string email)
         {
-            var response = await _client.GetAsync($"accounts/{email}");
+            var response = await _fixture.GetClient().GetAsync($"accounts/{email}");
             var message = await response.Content.ReadAsStringAsync();
-            
+
             return JsonConvert.DeserializeObject<AccountDto>(message);
         }
     }
