@@ -7,16 +7,15 @@ It's just a simple API, the first step on my path to learn Angular :fire:
 
 - ***RESTful API***
 - ***The Onion Architecture***
-- ***JWT Authorization***
+- ***JWT Authentication***
+- ***Entity Framework Core***
 - ***Commands & Handlers (as a part of CQRS)***
 - ***Unit testing (XUnit, Moq, FluentAssertions)***
 - ***.NET 5.0*** ✨
-- ***DI (Autofac)***
+- ***Autofac***
 - ***Swagger (via Swashbuckle)***
 - ***Angular*** (<https://github.com/damiankreft/SomeAngularApp>)
 
 ### In the near future
-
 - ***Queries (CQRS)***
 - ***Docker***
-- ***Entity Framework Core***
