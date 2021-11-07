@@ -14,7 +14,7 @@ namespace AccountApp.Api
         public static IHostBuilder CreateHostBuilder(string[] args)
             => Host.CreateDefaultBuilder(args)
                         .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                        .ConfigureWebHostDefaults(webHostBuilder => 
+                        .ConfigureWebHostDefaults(webHostBuilder =>
                         {
                             webHostBuilder
                                 .UseStartup<Startup>();

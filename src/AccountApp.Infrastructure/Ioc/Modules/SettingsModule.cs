@@ -1,4 +1,3 @@
-using AccountApp.Infrastructure.EntityFramework;
 using AccountApp.Infrastructure.Extensions;
 using AccountApp.Infrastructure.Settings;
 using Autofac;

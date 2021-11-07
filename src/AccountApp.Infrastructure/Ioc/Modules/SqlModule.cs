@@ -1,6 +1,6 @@
-using System.Reflection;
 using AccountApp.Infrastructure.EntityFramework;
 using Autofac;
+using System.Reflection;
 
 namespace AccountApp.Infrastructure.Ioc.Modules
 {

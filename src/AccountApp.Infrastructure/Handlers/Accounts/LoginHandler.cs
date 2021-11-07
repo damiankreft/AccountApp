@@ -1,10 +1,10 @@
-using System.Security.Authentication;
-using System.Threading.Tasks;
 using AccountApp.Infrastructure.Commands;
 using AccountApp.Infrastructure.Commands.Accounts;
 using AccountApp.Infrastructure.Extensions;
 using AccountApp.Infrastructure.Services;
 using Microsoft.Extensions.Caching.Memory;
+using System.Security.Authentication;
+using System.Threading.Tasks;
 
 namespace AccountApp.Infrastructure.Handlers.Accounts
 {

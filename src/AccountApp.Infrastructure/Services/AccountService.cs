@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AccountApp.Core.Domain;
 using AccountApp.Core.Repositories;
 using AccountApp.Infrastructure.Dto;
 using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using InvalidCredentialException = System.Security.Authentication.InvalidCredentialException;
 
 namespace AccountApp.Infrastructure.Services

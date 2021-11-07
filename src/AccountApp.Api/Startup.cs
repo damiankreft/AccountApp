@@ -40,7 +40,7 @@ namespace AccountApp.Api
                                 });
             }).AddMemoryCache()
                     .AddControllersWithViews()
-                    .AddJsonOptions(options 
+                    .AddJsonOptions(options
                         => options.JsonSerializerOptions.WriteIndented = true);
             services.AddJwtAuthentication(jwtSettings, securitySettings)
                     .AddAuthorization()
@@ -63,9 +63,10 @@ namespace AccountApp.Api
                 .UseDevelopmentConfiguration(env)
                 .UseRouting()
                 .UseAuthorization()
-                .UseEndpoints(endpoints =>  
+                .UseEndpoints(endpoints =>
                     {
-                        endpoints.MapGet("/", async context => { 
+                        endpoints.MapGet("/", async context =>
+                        {
                             await context.Response.WriteAsync("Hello, world!");
                         });
                         endpoints.MapControllers();

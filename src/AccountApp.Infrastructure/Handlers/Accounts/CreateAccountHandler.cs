@@ -1,14 +1,14 @@
-using System.Threading.Tasks;
 using AccountApp.Infrastructure.Commands;
 using AccountApp.Infrastructure.Commands.Accounts;
 using AccountApp.Infrastructure.Services;
+using System.Threading.Tasks;
 
 namespace AccountApp.Infrastructure.Handlers.Accounts
 {
     public class CreateAccountHandler : ICommandHandler<CreateAccount>
     {
         private readonly IAccountService _accountService;
-        
+
         public CreateAccountHandler(IAccountService accountService)
         {
             _accountService = accountService;

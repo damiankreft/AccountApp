@@ -1,6 +1,6 @@
-using System.Reflection;
 using AccountApp.Infrastructure.Services;
 using Autofac;
+using System.Reflection;
 
 namespace AccountApp.Infrastructure.Ioc.Modules
 {
@@ -19,7 +19,7 @@ namespace AccountApp.Infrastructure.Ioc.Modules
                 .Where(t => t.IsAssignableTo<IService>())
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
-        
+
             builder.RegisterType<Encrypter>()
                 .As<IEncrypter>()
                 .SingleInstance();

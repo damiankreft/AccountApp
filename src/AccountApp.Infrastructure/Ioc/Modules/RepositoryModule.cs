@@ -1,6 +1,6 @@
-using System.Reflection;
 using AccountApp.Core.Repositories;
 using Autofac;
+using System.Reflection;
 
 namespace AccountApp.Infrastructure.Ioc.Modules
 {

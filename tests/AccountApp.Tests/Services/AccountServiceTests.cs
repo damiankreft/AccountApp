@@ -1,10 +1,10 @@
-using System;
-using System.Threading.Tasks;
 using AccountApp.Core.Domain;
 using AccountApp.Core.Repositories;
 using AccountApp.Infrastructure.Repositories;
 using AccountApp.Infrastructure.Services;
 using Moq;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace AccountApp.Tests.Services
@@ -29,7 +29,7 @@ namespace AccountApp.Tests.Services
         {
             var accountService = new AccountService(_repository.Object, _encrypter.Object, _mapper.Object);
             await accountService.RegisterAsync("testowyEmail@dot.com", "testowyUser", "testoweHaslo", "user");
-            
+
             _repository.Verify(x => x.AddAsync(It.IsAny<Account>()), Times.Once);
         }
 

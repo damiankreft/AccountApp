@@ -1,6 +1,6 @@
+using AccountApp.Infrastructure.Extensions;
 using System;
 using System.Security.Cryptography;
-using AccountApp.Infrastructure.Extensions;
 
 namespace AccountApp.Infrastructure.Services
 {

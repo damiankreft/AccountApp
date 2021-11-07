@@ -1,17 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AccountApp.Core.Domain;
 using AccountApp.Core.Repositories;
 using AccountApp.Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AccountApp.Infrastructure.Repositories
 {
     public class AccountRepository : IAccountRepository, ISqlRepository
     {
         private readonly AccountContext _context;
-        
+
         public AccountRepository(AccountContext context)
         {
             _context = context;

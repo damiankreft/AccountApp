@@ -8,7 +8,7 @@ namespace AccountApp.Infrastructure.Mappers
     {
         public static IMapper Initialize()
             => new MapperConfiguration(cfg =>
-                { 
+                {
                     cfg.CreateMap<Account, AccountDto>();
                 })
                 .CreateMapper();

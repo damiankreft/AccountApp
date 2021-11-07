@@ -1,12 +1,12 @@
-using System;
-using System.Security.Authentication;
-using System.Threading.Tasks;
 using AccountApp.Infrastructure.Commands;
 using AccountApp.Infrastructure.Commands.Accounts;
 using AccountApp.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System;
+using System.Security.Authentication;
+using System.Threading.Tasks;
 
 namespace AccountApp.Api.Controllers
 {
@@ -24,7 +24,7 @@ namespace AccountApp.Api.Controllers
         /// <param name="command"></param>
         /// <returns>JSON Web Token on successful authentication, otherwise returns HttpResponse 401 - Unauthorized.</returns>
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody]Login command)
+        public async Task<IActionResult> Login([FromBody] Login command)
         {
             try
             {

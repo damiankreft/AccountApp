@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AccountApp.Infrastructure.Commands;
 using AccountApp.Infrastructure.Commands.Accounts;
 using AccountApp.Infrastructure.Dto;
@@ -7,6 +5,8 @@ using AccountApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AccountApp.Api.Controllers
 {
@@ -53,7 +53,7 @@ namespace AccountApp.Api.Controllers
             try
             {
                 await CommandDispatcher.DispatchAsync(command);
-            
+
                 return Created($@"accounts/{command.Email}", command);
             }
             catch (System.ArgumentException)

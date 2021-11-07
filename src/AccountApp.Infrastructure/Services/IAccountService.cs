@@ -1,6 +1,6 @@
+using AccountApp.Infrastructure.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AccountApp.Infrastructure.Dto;
 
 namespace AccountApp.Infrastructure.Services
 {

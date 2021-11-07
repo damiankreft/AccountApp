@@ -1,6 +1,6 @@
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace AccountApp.Infrastructure.Services
 {
@@ -17,10 +17,11 @@ namespace AccountApp.Infrastructure.Services
         {
             _logger.Log(LogLevel.Trace, "Begin data initialization.");
             var tasks = new List<Task>();
-            
+
             for (var i = 0; i < 10; i++)
             {
-                var user = new { 
+                var user = new
+                {
                     Email = $"user{i}@example.com",
                     Username = $"user{i}",
                     Password = "secretPassword",
@@ -33,7 +34,8 @@ namespace AccountApp.Infrastructure.Services
 
             for (var i = 0; i < 3; i++)
             {
-                var user = new { 
+                var user = new
+                {
                     Email = $"admin{i}@example.com",
                     Username = $"admin{i}",
                     Password = "secretPassword",

@@ -1,7 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using AccountApp.Infrastructure.Commands.Accounts;
 using Autofac;
+using System;
+using System.Threading.Tasks;
 
 namespace AccountApp.Infrastructure.Commands
 {
@@ -19,7 +19,7 @@ namespace AccountApp.Infrastructure.Commands
         {
             if (command is null)
             {
-                throw new ArgumentNullException(nameof(command), 
+                throw new ArgumentNullException(nameof(command),
                 $"Command {typeof(T).Name} cannot be null.");
             }
 

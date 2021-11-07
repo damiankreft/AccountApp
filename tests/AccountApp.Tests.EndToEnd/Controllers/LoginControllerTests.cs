@@ -1,9 +1,9 @@
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using AccountApp.Infrastructure.Dto;
 using FluentAssertions;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace AccountApp.Tests.EndToEnd.Controllers

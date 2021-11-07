@@ -1,9 +1,9 @@
+using AccountApp.Core.Domain;
+using AccountApp.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountApp.Core.Domain;
-using AccountApp.Core.Repositories;
 
 namespace AccountApp.Infrastructure.Repositories
 {

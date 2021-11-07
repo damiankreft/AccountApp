@@ -1,10 +1,10 @@
 using AccountApp.Infrastructure.Dto;
 using FluentAssertions;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace AccountApp.Tests.EndToEnd.Controllers
@@ -39,16 +39,16 @@ namespace AccountApp.Tests.EndToEnd.Controllers
         [Fact]
         public async Task creates_account_when_given_email_is_valid()
         {
-             var email = "validUser@example.com";
-             var username = "validUser";
-             var password = "D9F7165457A43834AAD524F80717553E0B73CF7E79F40BEBDC316B7A2B26FF7B";
-             var account = new { Email = email, Username = username, Password = password };
-             var payload = GetHttpPayload(account);
-             
-             var response = await _fixture.GetClient().PostAsync("accounts", payload);
+            var email = "validUser@example.com";
+            var username = "validUser";
+            var password = "D9F7165457A43834AAD524F80717553E0B73CF7E79F40BEBDC316B7A2B26FF7B";
+            var account = new { Email = email, Username = username, Password = password };
+            var payload = GetHttpPayload(account);
 
-             response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.Created);
-             response.Headers.Location.ToString().Should().BeEquivalentTo($"accounts/{account.Email}");
+            var response = await _fixture.GetClient().PostAsync("accounts", payload);
+
+            response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.Created);
+            response.Headers.Location.ToString().Should().BeEquivalentTo($"accounts/{account.Email}");
         }
 
         private static StringContent GetHttpPayload(object data)

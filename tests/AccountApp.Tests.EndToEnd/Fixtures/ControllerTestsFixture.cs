@@ -1,6 +1,6 @@
-using System.Net.Http;
 using AccountApp.Api;
 using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net.Http;
 
 namespace AccountApp.Tests.EndToEnd.Controllers
 {

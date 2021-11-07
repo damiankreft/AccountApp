@@ -1,15 +1,14 @@
-using System;
-using System.IO;
-using System.Reflection;
-using System.Text;
 using AccountApp.Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace AccountApp.Api
 {
@@ -28,7 +27,7 @@ namespace AccountApp.Api
                 app.UseDeveloperExceptionPage();
 
                 app.UseSwagger();
-                app.UseSwaggerUI(config => 
+                app.UseSwaggerUI(config =>
                 {
                     config.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger test");
                 });
@@ -47,10 +46,10 @@ namespace AccountApp.Api
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings, SecuritySettings securitySettings)
         {
             var encodedKey = Encoding.UTF8.GetBytes(jwtSettings.Key);
-            services.AddAuthentication(options => 
+            services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options => 
+            }).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -69,7 +68,7 @@ namespace AccountApp.Api
         /// <param name="services"></param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
         public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
-            => services.AddSwaggerGen(config => 
+            => services.AddSwaggerGen(config =>
                 {
                     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

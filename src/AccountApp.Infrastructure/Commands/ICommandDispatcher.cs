@@ -1,5 +1,5 @@
-using System.Threading.Tasks;
 using AccountApp.Infrastructure.Commands.Accounts;
+using System.Threading.Tasks;
 
 namespace AccountApp.Infrastructure.Commands
 {
