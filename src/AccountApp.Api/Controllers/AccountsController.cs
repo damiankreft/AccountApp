@@ -47,6 +47,7 @@ namespace AccountApp.Api.Controllers
         /// Create a new account.
         /// </summary>
         /// <param name="command"></param>
+        /// <response code="201">Account created successfully</response>
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] CreateAccount command)
         {
